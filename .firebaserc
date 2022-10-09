@@ -1,0 +1,21 @@
+{
+  "projects": {
+    "default": "theocratic-software"
+  },
+  "targets": {
+    "theocratic-software": {
+      "hosting": {
+        "orderly": [
+          "theocratic-software-orderly"
+        ],
+        "proclaim": [
+          "theocratic-software-proclaim"
+        ],
+        "alpha": [
+          "theocratic-software-alpha"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
