@@ -1,6 +1,3 @@
-export const Content = ({children }) => {
-  return (
-    <div className="grow overflow-auto">{children}
-    </div>
-  )
-}
+export const Content = ({ children }) => { 
+  return <div className="grow overflow-auto">{children}</div>;
+};

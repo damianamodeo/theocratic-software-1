@@ -45,5 +45,29 @@
       "enabled": true
     },
     "singleProjectMode": true
-  }
+  },
+  "hosting": [
+    {
+      "target": "orderly",
+      "public": "dist/orderly",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "alpha",
+      "public": "dist/alpha",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
 }

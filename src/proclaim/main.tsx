@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import { Proclaim } from "./proclaim/proclaim";
+import "../../src/common/styles/index.css";
+import { Proclaim } from "./proclaim";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <Proclaim></Proclaim>
-  </React.StrictMode>
+  <Proclaim />
 );
