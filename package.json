@@ -4,15 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev-orderly": "vite  -c vite-orderly.config.ts --port 3000",
-    "dev-proclaim": "vite -c vite-proclaim.config.ts",
-    "generate-assets-orderly": "tsc && vite build -c vite-orderly.config.ts --emptyOutDir --outDir ../../dist/orderly && npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg dist/alpha/assets -b '#5b3c88' -d true --icon-only true",
+    "serve-orderly": "vite  -c vite-orderly.config.ts --port 3000",
+    "serve-proclaim": "vite -c vite-proclaim.config.ts",
+    "generate-assets-orderly": "npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg src/orderly/icons/pwa -b '#5b3c88' -f true -i src/orderly/index.html && npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg src/orderly/public/assets -b '#5b3c88' -d true --scrape false --icon-only true",
     "generate-assets-proclaim": "npx pwa-asset-generator src/proclaim/icons/pwa/logo-proclaim.svg src/proclaim/icons/pwa -b '#5b3c88' -f true -i src/proclaim/index.html && npx pwa-asset-generator src/proclaim/icons/pwa/logo-proclaim.svg src/proclaim/public/assets -b '#5b3c88' -d true --scrape false --icon-only true",
     "build-orderly": "tsc && vite build -c vite-orderly.config.ts  --emptyOutDir --outDir ../../dist/orderly && npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg dist/orderly/assets --scrape false --icon-only true",
     "build-proclaim": "tsc && vite build -c vite-proclaim.config.ts --emptyOutDir --outDir ../../dist/proclaim",
-    "build-alpha-orderly": "tsc && vite build -c vite-orderly.config.ts --emptyOutDir --outDir ../../dist/alpha && npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg dist/alpha/assets -b '#5b3c88' -d true --scrape false --icon-only true",
+    "build-alpha-orderly": "tsc && vite build -c vite-orderly.config.ts --emptyOutDir --outDir ../../dist/alpha",
     "build-alpha-proclaim": "tsc && vite build -c vite-proclaim.config.ts --emptyOutDir --outDir ../../dist/alpha",
-    "deploy": "firebase deploy --only hosting"
+    "deploy": "firebase deploy --only hosting",
+    "emulators": "firebase emulators:start --import==./src/common/services/firebase/emulator/data --export-on-exit"
   },
   "dependencies": {
     "dexie": "^3.2.2",
@@ -20,16 +21,32 @@
     "firebase": "^9.11.0",
     "pwa-asset-generator": "^6.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-tsconfig-paths": "^3.5.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@vitejs/plugin-react": "^2.1.0",
     "autoprefixer": "^10.4.12",
+    "eslint": "^8.25.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.17",
+    "prettier": "^2.7.1",
     "tailwindcss": "^3.1.8",
-    "typescript": "^4.6.4",
+    "typescript": "^4.8.4",
     "vite": "^3.1.0",
     "vite-plugin-pwa": "^0.13.1"
   }

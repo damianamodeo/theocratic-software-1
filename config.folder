@@ -1,6 +1,0 @@
-firestore.rules, package-lock.json, yarn.lock, pnpm-lock.yaml, package.json, tsconfig.json, firestore.indexes.json, tailwind.config.cjs,vite-proclaim.config.ts,vite-orderly.config.ts,.*,
-
-
-
-
-*.json

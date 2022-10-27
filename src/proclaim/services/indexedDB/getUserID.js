@@ -1,3 +1,5 @@
+import {idb} from "./dexie"
+
 export  const getUserID = async () => {
   const item = await idb.settings.get(1);
   if (item == undefined) {
