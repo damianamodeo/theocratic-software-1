@@ -8,7 +8,7 @@ import { Personal } from "./personal";
 import { HeaderContext } from "../../../services/contexts/header.jsx";
 
 export const NotAtHomes = ({ userID, active }) => {
-  const {title} = useContext(HeaderContext);
+  const { title } = useContext(HeaderContext);
   return (
     <Page>
       <Header>
@@ -23,6 +23,9 @@ export const NotAtHomes = ({ userID, active }) => {
         </div>
         <div className={`${active === "Letters" ? "visible" : "hidden"}`}>
           <Letters userID={userID} />
+        </div>
+        <div className={`${active === "Maps" ? "visible" : "hidden"}`}>
+          <Maps userID={userID} />
         </div>
       </div>
     </Page>

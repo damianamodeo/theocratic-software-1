@@ -11,7 +11,7 @@ import {
   serverTimestamp,
   orderBy,
   where,
-  deleteField
+  deleteField,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Card } from "../../../../common/components/containers/card";
@@ -19,7 +19,7 @@ import { Content } from "../../../../common/components/containers/content";
 import { Search } from "../../../../common/components/inputs/search";
 import { Header } from "../../../../common/components/containers/header";
 
-export const Callback = ({ userID, setContent}) => {
+export const Callback = ({ userID, setContent }) => {
   const notAtHomes = collection(fdb, "notAtHomes");
   const [editAddressID, setEditAddressID] = useState("");
   const [addressKey, setAddressKey] = useState("");
@@ -34,6 +34,10 @@ export const Callback = ({ userID, setContent}) => {
   const [screen, setScreen] = useState("visible");
   const [search, setSearch] = useState("");
   let total = 0;
+  let oldSuburb = "";
+  let writeSuburb = true;
+  let oldStreet = "";
+  let writeStreet = true;
 
   const addAddress = async () => {
     await addDoc(notAtHomes, {
@@ -50,7 +54,7 @@ export const Callback = ({ userID, setContent}) => {
   };
 
   const editAddress = (address, key) => {
-    setAddressKey(key)
+    setAddressKey(key);
     setAddress(address);
     setEditAddressID(address.id);
     setNewMap(address.mapNumber);
@@ -85,37 +89,37 @@ export const Callback = ({ userID, setContent}) => {
 
   const remove = async (id) => {
     const address = doc(fdb, "notAtHomes", "MaitlandCongregation");
-    const obj = {}
-    obj[addressKey] = deleteField()
+    const obj = {};
+    obj[addressKey] = deleteField();
     await updateDoc(address, obj);
     setAddress({});
     setScreen("visible");
   };
 
-  const update = async (id ) => {
+  const update = async (id) => {
     setScreen("visible");
-  const address = doc(fdb, "notAtHomes", "MaitlandCongregation");
+    const address = doc(fdb, "notAtHomes", "MaitlandCongregation");
 
-  const obj = {}
-  const newAddress = {
-    id: Date.now(),
-    user: userID,
-    mapNumber: newMap || "",
-    suburb: newSuburb,
-    street: newStreet,
-    houseNumber: newHouseNumber,
-    unitNumber: newUnitNumber || "",
-    letter: true
+    const obj = {};
+    const newAddress = {
+      id: Date.now(),
+      user: userID,
+      mapNumber: newMap || "",
+      suburb: newSuburb,
+      street: newStreet,
+      houseNumber: newHouseNumber,
+      unitNumber: newUnitNumber || "",
+      letter: true,
+    };
+    // console.log(addressKey)
+
+    obj[addressKey] = newAddress;
+    await updateDoc(address, obj);
+    setAddress(newAddress);
+
+    // setNewHouseNumber("");
+    // setNewUnitNumber("");
   };
-  // console.log(addressKey)
-  
-  obj[addressKey] = newAddress
-  await updateDoc(address, obj);
-  setAddress(newAddress);
-
-  // setNewHouseNumber("");
-  // setNewUnitNumber("");
-};
 
   useEffect(() => {
     const q = query(notAtHomes, where("cong", "==", "mmm"));
@@ -148,88 +152,108 @@ export const Callback = ({ userID, setContent}) => {
             After you have visited an address tap on it and select "HOME" or
             "NOT HOME"
           </div>
-          <div>
+          <div className="grid grid-cols-5 gap-2">
             {Object.keys(addresses)
-              .sort()
+              .sort(function (a, b) {
+                // return addresses[a].suburb > addresses[b].suburb ?  1 : -1;
+                if (addresses[a].suburb === addresses[b].suburb) {
+                  if (addresses[a].street === addresses[b].street) {
+                    return addresses[a].houseNumber > addresses[b].houseNumber
+                      ? 1
+                      : -1;
+                  } else {
+                    return addresses[a].street > addresses[b].street ? 1 : -1;
+                  }
+                } else {
+                  return addresses[a].suburb > addresses[b].suburb ? 1 : -1;
+                }
+              })
               .map(function (key) {
                 const address = addresses[key];
                 if (key === "cong") return;
                 if (key === "id") return;
-                if (address.letter) return 
+                if (address.letter) return;
                 const str = `${address.mapNumber} ${address.suburb} ${address.street}`;
                 if (str.match(search)) {
-
                   total = total + 1;
+
+                  if (oldSuburb !== address.suburb) {
+                    writeSuburb = true;
+                    oldSuburb = address.suburb;
+                  } else {
+                    writeSuburb = false;
+                  }
+                  if (oldStreet !== address.street) {
+                    writeStreet = true;
+                    oldStreet = address.street;
+                  } else {
+                    writeStreet = false;
+                  }
+
                   return (
-                    <div
-                      className="my-4"
-                      key={key}
-                      onClick={() => {
-                        editAddress(address, key);
-                      }}
-                    >
-                      <Card>
-                        <div>Map: {address.mapNumber}</div>
-                        <div className="py-2 text-xl">
-                          {`${
-                            address.unitNumber ? `${address.unitNumber}/` : ""
-                          }${address.houseNumber} ${address.street}, ${
-                            address.suburb
-                          }`}
+                    <>
+                      {writeSuburb ? (
+                        <>
+                        <div className="col-span-5 border"></div>
+                          <div
+                            key={key + "a"}
+                            className="p-2 text-3xl col-span-5 text-center"
+                          >
+                            {address.suburb}
+                          </div>
+                        </>
+                      ) : null}
+                      {writeStreet ? (
+                        <div
+                          key={key + "b"}
+                          className="p-4 text-2xl col-span-5"
+                        >
+                          {address.street}
                         </div>
-                      </Card>
-                      <div className="border"></div>
-                    </div>
-                  );}
-              })}
-          </div>
-
-          {/* <div className="overflow-hidden-xxx">
-            {Object.keys(addresses)
-              .filter((address) => {
-                let str = `${address.map} ${address.suburb} ${address.street}`;
-                return str.match(search);
-              })
-              .map((addresses, key) => {
-                if (
-                  (address.foundHome == undefined) &
-                  (address.letterSent == undefined)
-                ) {
-                  total = total + 1;
-                }
-                return address.foundHome == undefined &&
-                  address.letterSent == undefined ? (
-                  <div
-                    className="my-4-xxx"
-                    key={address.id}
-                    onClick={() => editAddress(address)}
-                  >
-                    <Card>
-                      <div>Map: {address.map}</div>
-                      <div className="py-2-xxx text-xl">
+                      ) : null}
+                      <div
+                        key={key + "c"}
+                        className="p-2 p-4 text-xl align-middle text-center bg-bg "
+                        onClick={() => {
+                          editAddress(address, key);
+                        }}
+                      >
+                        {/* <div>Map: {address.mapNumber}</div> */}
+                        {/* <div className=" text-xl col-span-1"> */}
                         {`${
                           address.unitNumber ? `${address.unitNumber}/` : ""
-                        }${address.houseNumber} ${address.street}, ${
-                          address.suburb
-                        }`}
+                        }${address.houseNumber} 
+                            `}
+                        {/* </div> */}
+
+                        {/* <div className="border"></div> */}
                       </div>
-                    </Card>
-                    <div className="border"></div>
-                  </div>
-                ) : null;
+                    </>
+                  );
+                }
               })}
-            </div> */}
-            <div className=" my-10-xxx text-bgDark">{total}</div>
+          </div>
+          <div className=" my-10-xxx text-bgDark">{total}</div>
         </div>
-        <div className={` mt-40 ${screen == "visible" ? "hidden" : "visible"}`}>
-          <Button action={() => remove(editAddressID)}>
-            Home
-          </Button>
+        <div
+          className={` my-20 text-center ${
+            screen == "visible" ? "hidden" : "visible"
+          }`}
+        >
+          <div className=" text-3xl ">
+            {`${address.unitNumber ? `${address.unitNumber}/` : ""}${
+              address.houseNumber
+            } ${address.street}, ${address.suburb} 
+                            `}
+          </div>
+
+          {/* <div className="border"></div> */}
+        </div>
+        <div className={` mt-4 ${screen == "visible" ? "hidden" : "visible"}`}>
+          <Button action={() => remove(editAddressID)}>Home</Button>
         </div>
         <div className={` my-12 ${screen == "visible" ? "hidden" : "visible"}`}>
-          <Button action={() => update(editAddressID)}>
-            Not Home
-          </Button>
+          <Button action={() => update(editAddressID)}>Not Home</Button>
         </div>
 
         <div className={`my-24 ${screen == "visible" ? "hidden" : "visible"}`}>

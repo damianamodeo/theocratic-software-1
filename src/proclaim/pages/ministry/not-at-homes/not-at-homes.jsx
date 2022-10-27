@@ -5,6 +5,7 @@ import { Page } from "../../../../common/components/containers/page";
 import { Callback } from "./callback";
 import { Letters } from "./letters";
 import { Personal } from "./personal";
+import { Maps } from "./maps";
 // import { HeaderContext } from "@contexts/header.jsx";
 
 export const NotAtHomes = ({ userID, active }) => {
@@ -23,6 +24,9 @@ export const NotAtHomes = ({ userID, active }) => {
         </div>
         <div className={`${active === "Letters" ? "visible" : "hidden"}`}>
           <Letters userID={userID} />
+        </div>
+        <div className={`${active === "Maps" ? "visible" : "hidden"}`}>
+          <Maps userID={userID} />
         </div>
       </Content>
     </Page>

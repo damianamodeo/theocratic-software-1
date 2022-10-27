@@ -39,6 +39,11 @@ export const Proclaim = () => {
             active={active}
             setActive={setActive}
           ></NavbarIcon>
+          {/* <NavbarIcon
+            title="Maps"
+            active={active}
+            setActive={setActive}
+          ></NavbarIcon> */}
         </Navbar>
       </>
     </div>

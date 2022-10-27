@@ -51,12 +51,8 @@ export const Personal = ({ userID }) => {
         <div className=""></div>
         {form}
       </div>
-      <div
-        className={`mt-4 ${
-          content == "Update" ? "visible" : "hidden"
-        }`}
-      >
-      <Button action={() => setContent("list")}>Back</Button>
+      <div className={`mt-4 ${content == "Update" ? "visible" : "hidden"}`}>
+        <Button action={() => setContent("list")}>Back</Button>
       </div>
       <div className={`${content == "list" ? "visible" : "hidden"}`}>
         <div className="pt-6">

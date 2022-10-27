@@ -60,7 +60,7 @@ export const Form = ({
       mapNumber: newMap || 0,
       suburb: newSuburb,
       street: newStreet,
-      houseNumber: newHouseNumber,
+      houseNumber: Number(newHouseNumber),
       unitNumber: newUnitNumber || ""
     };
     obj["id" + Date.now()] = newAddress
@@ -84,7 +84,7 @@ export const Form = ({
       mapNumber: newMap || 0,
       suburb: newSuburb,
       street: newStreet,
-      houseNumber: newHouseNumber,
+      houseNumber: Number(newHouseNumber),
       unitNumber: newUnitNumber || ""
     };
     
