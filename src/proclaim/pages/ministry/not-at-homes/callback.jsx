@@ -111,7 +111,6 @@ export const Callback = ({ userID, setContent }) => {
       unitNumber: newUnitNumber || "",
       letter: true,
     };
-    // console.log(addressKey)
 
     obj[addressKey] = newAddress;
     await updateDoc(address, obj);
@@ -152,86 +151,114 @@ export const Callback = ({ userID, setContent }) => {
             After you have visited an address tap on it and select "HOME" or
             "NOT HOME"
           </div>
-          <div className="grid grid-cols-5 gap-2">
-            {Object.keys(addresses)
-              .sort(function (a, b) {
-                // return addresses[a].suburb > addresses[b].suburb ?  1 : -1;
-                if (addresses[a].suburb === addresses[b].suburb) {
-                  if (addresses[a].street === addresses[b].street) {
-                    return addresses[a].houseNumber > addresses[b].houseNumber
-                      ? 1
-                      : -1;
-                  } else {
-                    return addresses[a].street > addresses[b].street ? 1 : -1;
-                  }
-                } else {
-                  return addresses[a].suburb > addresses[b].suburb ? 1 : -1;
-                }
-              })
-              .map(function (key) {
-                const address = addresses[key];
-                if (key === "cong") return;
-                if (key === "id") return;
-                if (address.letter) return;
-                const str = `${address.mapNumber} ${address.suburb} ${address.street}`;
-                if (str.match(search)) {
-                  total = total + 1;
-
-                  if (oldSuburb !== address.suburb) {
-                    writeSuburb = true;
-                    oldSuburb = address.suburb;
-                  } else {
-                    writeSuburb = false;
-                  }
-                  if (oldStreet !== address.street) {
-                    writeStreet = true;
-                    oldStreet = address.street;
-                  } else {
-                    writeStreet = false;
-                  }
-
-                  return (
-                    <>
-                      {writeSuburb ? (
-                        <>
-                        <div className="col-span-5 border"></div>
-                          <div
-                            key={key + "a"}
-                            className="p-2 text-3xl col-span-5 text-center"
-                          >
-                            {address.suburb}
-                          </div>
-                        </>
-                      ) : null}
-                      {writeStreet ? (
-                        <div
-                          key={key + "b"}
-                          className="p-4 text-2xl col-span-5"
-                        >
-                          {address.street}
-                        </div>
-                      ) : null}
-                      <div
-                        key={key + "c"}
-                        className="p-2 p-4 text-xl align-middle text-center bg-bg "
-                        onClick={() => {
-                          editAddress(address, key);
-                        }}
-                      >
-                        {/* <div>Map: {address.mapNumber}</div> */}
-                        {/* <div className=" text-xl col-span-1"> */}
-                        {`${
-                          address.unitNumber ? `${address.unitNumber}/` : ""
-                        }${address.houseNumber} 
-                            `}
-                        {/* </div> */}
-
-                        {/* <div className="border"></div> */}
-                      </div>
-                    </>
-                  );
-                }
-              })}
+          <div className="">
+            {[
+              ...new Set(
+                Object.keys(Object.fromEntries(Object.entries(addresses).filter(([key, value]) => !value.letter))) //.filter(address => address.letter === true)
+                  .sort(function (a, b) {
+                    return a < b ? 1 : -1;
+                  })
+                  .filter(id =>  true )
+                  .map((key) => addresses[key].suburb)
+              ),
+            ].map(function (suburb) {
+              if (!suburb) return;
+              return (
+                <>
+                  <div
+                    key={suburb}
+                    className="text-primary font-bold text-3xl pb-4 text-center"
+                  >
+                    {suburb}
+                    <div>
+                      {[
+                        ...new Set(
+                          Object.keys(Object.fromEntries(Object.entries(addresses).filter(([key, value]) => !value.letter)))
+                            .sort(function (a, b) {
+                              return addresses[a].street > addresses[b].street
+                                ? 1
+                                : -1;
+                            })
+                            .filter((id) => addresses[id].suburb === suburb)
+                            // .filter((id) => addresses[id].letter === true)
+                            .map((id) => addresses[id].street)
+                        ),
+                      ].map(function (street) {
+                        return (
+                          <>
+                            <div
+                              key={street}
+                              className="text-black font-normal px-2 py-4 text-2xl text-left"
+                            >
+                              {street}
+                              <div className="pt-4 text-2xl text-left grid grid-cols-5 gap-2">
+                                {Object.keys(addresses)
+                                  .filter((id) => {
+                                    const address = addresses[id];
+                                    if (id === "cong") {
+                                      return false;
+                                    }
+                                    if (id === "id") {
+                                      return false;
+                                    }
+                                    if (suburb !== address.suburb) {
+                                      return false;
+                                    }
+                                    if (street !== address.street) {
+                                      return false;
+                                    }
+                                    if (address.letter) {
+                                      return false;
+                                    }
+                                    return true;
+                                  })
+                                  .sort(function (a, b) {
+                                    return parseInt(addresses[b].unitNumber) >
+                                      parseInt(addresses[a].unitNumber)
+                                      ? 1
+                                      : -1;
+                                  })
+                                  .sort(function (a, b) {
+                                    return addresses[a].houseNumber >
+                                      addresses[b].houseNumber
+                                      ? 1
+                                      : -1;
+                                  })
+                                  .map(function (id) {
+                                    const address = addresses[id];
+                                    return (
+                                      <>
+                                        <div
+                                          key={id}
+                                          className="p-4 text-lg align-middle text-center bg-bg "
+                                          onClick={() => {
+                                            editAddress(addresses[id], id);
+                                          }}
+                                        >
+                                          {address.unitNumber ? `${address.unitNumber} / ` : ""}{address.houseNumber}
+                                        </div>
+                                      </>
+                                    );
+                                  })}
+                              </div>
+                            </div>
+                          </>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+            {
+              
+                    console.log( Object.fromEntries(Object.entries(addresses).filter(([key, value]) => !value.letter)))
+                    
+                    
+                    }
+                    {
+                      console.log( addresses)
+                    }
           </div>
           <div className=" my-10-xxx text-bgDark">{total}</div>
         </div>
@@ -240,7 +267,7 @@ export const Callback = ({ userID, setContent }) => {
             screen == "visible" ? "hidden" : "visible"
           }`}
         >
-          <div className=" text-3xl ">
+          <div className=" text-2xl ">
             {`${address.unitNumber ? `${address.unitNumber}/` : ""}${
               address.houseNumber
             } ${address.street}, ${address.suburb} 

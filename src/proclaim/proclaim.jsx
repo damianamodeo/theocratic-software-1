@@ -5,7 +5,7 @@ import { NotAtHomes } from "./pages/ministry/not-at-homes/not-at-homes";
 import { idb } from "./services/indexedDB/dexie";
 
 export const Proclaim = () => {
-  const [active, setActive] = useState("Personal");
+  const [active, setActive] = useState("Combined");
   const [userID, setUserID] = useState("");
   const getUserID = async () => {
     const item = await idb.settings.get(1);
