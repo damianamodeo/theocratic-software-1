@@ -11,7 +11,7 @@ import { Maps } from "./maps";
 export const NotAtHomes = ({ userID, active }) => {
   // const {title} = useContext(HeaderContext);
   return (
-    <Page>
+    <>
       <Header>
         <div className="text-center grow">{active}</div>
       </Header>
@@ -29,6 +29,6 @@ export const NotAtHomes = ({ userID, active }) => {
           <Maps userID={userID} />
         </div>
       </Content>
-    </Page>
+    </>
   );
 };

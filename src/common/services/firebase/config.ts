@@ -22,4 +22,4 @@ export const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const fdb = getFirestore();
-connectFirestoreEmulator(fdb, 'localhost', 8080);
+// connectFirestoreEmulator(fdb, 'localhost', 8080);

@@ -140,11 +140,11 @@ export const Callback = ({ userID, setContent }) => {
             screen == "visible" ? "visible" : "hidden"
           }`}
         >
-          <Search
+          {/* <Search
             action={(e) => {
               setSearch(new RegExp(e.target.value, "i"));
             }}
-          ></Search>
+          ></Search> */}
         </div>
         <div className={` ${screen}`}>
           <div className="my-4 mx-16 grid-xxx pt-20-xxx text-center font-noto text-sm text-blue-600 dark:text-blue-200">
@@ -154,11 +154,17 @@ export const Callback = ({ userID, setContent }) => {
           <div className="">
             {[
               ...new Set(
-                Object.keys(Object.fromEntries(Object.entries(addresses).filter(([key, value]) => !value.letter))) //.filter(address => address.letter === true)
+                Object.keys(
+                  Object.fromEntries(
+                    Object.entries(addresses).filter(
+                      ([key, value]) => !value.letter
+                    )
+                  )
+                ) //.filter(address => address.letter === true)
                   .sort(function (a, b) {
-                    return a < b ? 1 : -1;
+                    return addresses[a].suburb > addresses[b].suburb ? 1 : -1;
                   })
-                  .filter(id =>  true )
+                  .filter((id) => true)
                   .map((key) => addresses[key].suburb)
               ),
             ].map(function (suburb) {
@@ -173,7 +179,13 @@ export const Callback = ({ userID, setContent }) => {
                     <div>
                       {[
                         ...new Set(
-                          Object.keys(Object.fromEntries(Object.entries(addresses).filter(([key, value]) => !value.letter)))
+                          Object.keys(
+                            Object.fromEntries(
+                              Object.entries(addresses).filter(
+                                ([key, value]) => !value.letter
+                              )
+                            )
+                          )
                             .sort(function (a, b) {
                               return addresses[a].street > addresses[b].street
                                 ? 1
@@ -191,7 +203,7 @@ export const Callback = ({ userID, setContent }) => {
                               className="text-black font-normal px-2 py-4 text-2xl text-left"
                             >
                               {street}
-                              <div className="pt-4 text-2xl text-left grid grid-cols-5 gap-2">
+                              <div className="pt-4 text-2xl text-left grid grid-cols-4 gap-2">
                                 {Object.keys(addresses)
                                   .filter((id) => {
                                     const address = addresses[id];
@@ -213,14 +225,17 @@ export const Callback = ({ userID, setContent }) => {
                                     return true;
                                   })
                                   .sort(function (a, b) {
-                                    return parseInt(addresses[b].unitNumber) >
-                                      parseInt(addresses[a].unitNumber)
-                                      ? 1
-                                      : -1;
-                                  })
-                                  .sort(function (a, b) {
-                                    return addresses[a].houseNumber >
+                                    if (
+                                      addresses[a].houseNumber !==
                                       addresses[b].houseNumber
+                                    ) {
+                                      return addresses[a].houseNumber >
+                                        addresses[b].houseNumber
+                                        ? 1
+                                        : -1;
+                                    }
+                                    return parseInt(addresses[b].unitNumber) <
+                                      parseInt(addresses[a].unitNumber)
                                       ? 1
                                       : -1;
                                   })
@@ -230,12 +245,15 @@ export const Callback = ({ userID, setContent }) => {
                                       <>
                                         <div
                                           key={id}
-                                          className="p-4 text-lg align-middle text-center bg-bg "
+                                          className="py-4 text-lg align-middle text-center bg-bg "
                                           onClick={() => {
                                             editAddress(addresses[id], id);
                                           }}
                                         >
-                                          {address.unitNumber ? `${address.unitNumber} / ` : ""}{address.houseNumber}
+                                          {address.unitNumber
+                                            ? `${address.unitNumber}-`
+                                            : ""}
+                                          {address.houseNumber}
                                         </div>
                                       </>
                                     );
@@ -251,14 +269,11 @@ export const Callback = ({ userID, setContent }) => {
               );
             })}
             {
-              
-                    console.log( Object.fromEntries(Object.entries(addresses).filter(([key, value]) => !value.letter)))
-                    
-                    
-                    }
-                    {
-                      console.log( addresses)
-                    }
+              // console.log( Object.fromEntries(Object.entries(addresses).filter(([key, value]) => !value.letter)))
+            }
+            {
+              // console.log( addresses)
+            }
           </div>
           <div className=" my-10-xxx text-bgDark">{total}</div>
         </div>
