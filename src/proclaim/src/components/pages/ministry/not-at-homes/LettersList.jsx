@@ -2,35 +2,31 @@ import { useContext } from "react";
 import {
   PageContext,
   AddressContext,
-} from "../../../../common/pages/ministry/notAtHomes/context";
+} from "../../../../services/context/notAtHomesContext";
 
-export const HouseNumbers = ({ suburb, street, addresses }) => {
+export const LettersList = ({ addresses }) => {
   const { address, setAddress } = useContext(AddressContext);
-  const {page, setPage} = useContext(PageContext)
+  const { page, setPage } = useContext(PageContext);
   const editAddress = (id) => {
-    setAddress(addresses[id])
-    setPage("test")
+    setAddress(id);
+    setPage("LettersForm");
   };
-
   return (
-    <div className="pt-4 text-2xl text-left grid grid-cols-4 gap-2">
+    <>
       {Object.keys(addresses)
         .filter((id) => {
           const address = addresses[id];
-          if (
-            id === "cong" ||
-            id === "id" ||
-            suburb !== address.suburb ||
-            street !== address.street ||
-            address.letter
-          ) {
+          if (id === "cong" || id === "id" || !address.letter) {
             return false;
           }
           return true;
         })
         .sort(function (a, b) {
           if (addresses[a].houseNumber !== addresses[b].houseNumber) {
-            return addresses[a].houseNumber > addresses[b].houseNumber ? 1 : -1;
+            return parseInt(addresses[a].houseNumber) >
+              parseInt(addresses[b].houseNumber)
+              ? 1
+              : -1;
           }
           return parseInt(addresses[b].unitNumber) <
             parseInt(addresses[a].unitNumber)
@@ -42,16 +38,17 @@ export const HouseNumbers = ({ suburb, street, addresses }) => {
           return (
             <div
               key={id}
-              className="py-4 text-lg align-middle text-center bg-bg "
+              className="p-4 text-sm font-normal align-middle border"
               onClick={() => {
                 editAddress(id);
               }}
             >
-              {address.unitNumber ? `${address.unitNumber}-` : ""}
-              {address.houseNumber}
+              {`${address.unitNumber ? `${address.unitNumber}/` : ""}${
+                address.houseNumber
+              } ${address.street}, ${address.suburb} (${address.mapNumber})`}
             </div>
           );
         })}
-    </div>
+    </>
   );
 };

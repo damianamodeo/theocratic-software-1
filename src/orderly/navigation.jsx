@@ -22,12 +22,17 @@ export const Navigation = () => {
         </div>
         <Navbar>
           <NavbarIcon
-            title="Nothing Yet"
+            title="Personal"
             active={active}
             setActive={setActive}
           ></NavbarIcon>
           <NavbarIcon
             title="Ministry"
+            active={active}
+            setActive={setActive}
+          ></NavbarIcon>
+          <NavbarIcon
+            title="Letters"
             active={active}
             setActive={setActive}
           ></NavbarIcon>

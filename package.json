@@ -8,7 +8,7 @@
     "serve-proclaim": "vite -c vite-proclaim.config.ts",
     "generate-assets-orderly": "npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg src/orderly/icons/pwa -b '#5b3c88' -f true -i src/orderly/index.html && npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg src/orderly/public/assets -b '#5b3c88' -d true --scrape false --icon-only true",
     "generate-assets-proclaim": "npx pwa-asset-generator src/proclaim/icons/pwa/logo-proclaim.svg src/proclaim/icons/pwa -b '#5b3c88' -f true -i src/proclaim/index.html && npx pwa-asset-generator src/proclaim/icons/pwa/logo-proclaim.svg src/proclaim/public/assets -b '#5b3c88' -d true --scrape false --icon-only true",
-    "build-orderly": "tsc && vite build -c vite-orderly.config.ts  --emptyOutDir --outDir ../../dist/orderly && npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg dist/orderly/assets --scrape false --icon-only true",
+    "build-orderly": "tsc && vite build -c vite-orderly.config.ts  --emptyOutDir --outDir ../../dist/orderly",
     "build-proclaim": "tsc && vite build -c vite-proclaim.config.ts --emptyOutDir --outDir ../../dist/proclaim",
     "build-alpha-orderly": "tsc && vite build -c vite-orderly.config.ts --emptyOutDir --outDir ../../dist/alpha",
     "build-alpha-proclaim": "tsc && vite build -c vite-proclaim.config.ts --emptyOutDir --outDir ../../dist/alpha",

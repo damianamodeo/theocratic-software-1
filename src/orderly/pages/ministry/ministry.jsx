@@ -1,12 +1,9 @@
-import { NotAtHomesContext } from "../../../common/pages/ministry/notAtHomes/context";
-import { NotAtHomes } from "./notAtHomes/notAtHomes";
+import { NotAtHomes } from "../../../common/pages/ministry/notAtHomes/main.jsx";
 
 export const Ministry = ({ active }) => {
   return (
-    <NotAtHomesContext>
-      <div className={`${active === "Ministry" ? "visible" : "hidden"}`}>
-        <NotAtHomes />
-      </div>
-    </NotAtHomesContext>
+    <div className={`${active === "Ministry" ? "visible" : "hidden"}`}>
+      <NotAtHomes />
+    </div>
   );
 };
