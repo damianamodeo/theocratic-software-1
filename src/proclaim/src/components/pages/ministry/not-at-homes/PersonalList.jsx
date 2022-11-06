@@ -34,6 +34,24 @@ export const PersonalList = ({ addresses }) => {
           Add
         </Button>
       </div>
+      <div className="text-center font-bold pb-4">
+        You currently have
+        {` ${
+          Object.keys(addresses).filter((id) => {
+            const address = addresses[id];
+            if (
+              id === "cong" ||
+              id === "id" ||
+              address.letter ||
+              address.user !== userID
+            ) {
+              return false;
+            }
+            return true;
+          }).length
+        } `}
+        active addresses
+      </div>
       {Object.keys(addresses)
         .filter((id) => {
           const address = addresses[id];
