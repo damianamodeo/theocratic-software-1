@@ -52,6 +52,7 @@ export const PersonalList = ({ addresses }) => {
         } `}
         active addresses
       </div>
+      <div className="text-center text-sm text-secondary pb-4">Tap on address to edit</div>
       {Object.keys(addresses)
         .filter((id) => {
           const address = addresses[id];
@@ -81,9 +82,9 @@ export const PersonalList = ({ addresses }) => {
                 setPage("PersonalUpdate");
               }}
             >
-              {`${address.unitNumber ? `${address.unitNumber}/` : ""}${
-                address.houseNumber
-              } ${address.street}, ${address.suburb} (${address.mapNumber})`}
+              {`${address.mapNumber} - ${address.suburb} - ${address.street} - ${
+                address.unitNumber ? `${address.unitNumber}/` : ""
+              }${address.houseNumber}`}
             </div>
           );
         })}
