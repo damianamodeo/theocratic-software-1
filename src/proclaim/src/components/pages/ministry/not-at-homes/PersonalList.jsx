@@ -5,13 +5,17 @@ import {
   AddressContext,
   AddressFormContext,
 } from "../../../../services/context/notAtHomesContext";
-import { HeaderContext } from "../../../../services/context/mainContext.jsx";
+import {
+  HeaderContext,
+  UserIDContext,
+} from "../../../../services/context/mainContext.jsx";
 
 export const PersonalList = ({ addresses }) => {
   const { page, setPage } = useContext(PageContext);
   const { address, setAddress } = useContext(AddressContext);
   const { addressForm, setAddressForm } = useContext(AddressFormContext);
   const { header, setHeader } = useContext(HeaderContext);
+  const { userID, setUserID } = useContext(UserIDContext);
 
   return (
     <>
@@ -33,7 +37,12 @@ export const PersonalList = ({ addresses }) => {
       {Object.keys(addresses)
         .filter((id) => {
           const address = addresses[id];
-          if (id === "cong" || id === "id" || address.letter) {
+          if (
+            id === "cong" ||
+            id === "id" ||
+            address.letter ||
+            address.user !== userID
+          ) {
             return false;
           }
           return true;
