@@ -8,10 +8,14 @@ import { Button } from "../../../../../../common/components/inputs/button.jsx";
 import { doc, updateDoc } from "firebase/firestore";
 import { fdb } from "../../../../../../common/services/firebase/config";
 import { AddressForm } from "./AddressForm";
-import { HeaderContext, UserIDContext } from "../../../../services/context/mainContext.jsx";
+import {
+  HeaderContext,
+  UserIDContext,
+} from "../../../../services/context/mainContext.jsx";
+import { toTitleCase } from "../../../../../../common/services/formatting/titleCase";
 
 export const PersonalAdd = ({ addresses }) => {
-  const {userID, setUserID} = useContext(UserIDContext);
+  const { userID, setUserID } = useContext(UserIDContext);
   const { page, setPage } = useContext(PageContext);
   const { address, setAddress } = useContext(AddressContext);
   const { addressForm, setAddressForm } = useContext(AddressFormContext);
@@ -26,9 +30,9 @@ export const PersonalAdd = ({ addresses }) => {
     obj[id] = {
       id: Date.now(),
       user: userID,
-      mapNumber: addressForm.mapNumber || 0,
-      suburb: addressForm.suburb.trim(),
-      street: addressForm.street.trim(),
+      mapNumber: addressForm.mapNumber || "N/A",
+      suburb: toTitleCase(addressForm.suburb.trim()),
+      street: toTitleCase(addressForm.street.trim()),
       houseNumber: Number(addressForm.houseNumber),
       unitNumber: addressForm.unitNumber || "",
     };

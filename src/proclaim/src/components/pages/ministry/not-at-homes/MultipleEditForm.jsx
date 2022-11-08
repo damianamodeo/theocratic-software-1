@@ -24,9 +24,10 @@ export const MultipleEditForm = ({ addresses }) => {
       ...new Set(
         Object.keys(
           Object.fromEntries(
-            Object.entries(addresses).filter(
-              ([key, address]) =>
-                address[multipleEdit.key] === multipleEdit.oldValue
+            Object.entries(addresses).filter(([key, address]) =>
+              multipleEdit.key === "suburb"
+                ? address[multipleEdit.key] === multipleEdit.oldSuburb
+                : address[multipleEdit.key] === multipleEdit.oldStreet
             )
           )
         ).map((id) => id)
@@ -34,7 +35,10 @@ export const MultipleEditForm = ({ addresses }) => {
     ].map((id) => {
       obj[id] = {
         ...addresses[id],
-        [multipleEdit.key]: multipleEdit.newValue
+        suburb: multipleEdit.newSuburb,
+        ...(multipleEdit.key === "street" && {
+          street: multipleEdit.newStreet,
+        }),
       };
     });
     await updateDoc(document, obj);
@@ -47,13 +51,28 @@ export const MultipleEditForm = ({ addresses }) => {
           action={(e) => {
             setMultipleEdit({
               ...multipleEdit,
-              newValue: toTitleCase(e.target.value),
+              newSuburb: toTitleCase(e.target.value),
             });
           }}
-          label={multipleEdit.key}
-          value={multipleEdit.newValue}
+          label={"Suburb"}
+          value={multipleEdit.newSuburb}
         ></TextInput>
       </div>
+      {multipleEdit.key === "street" ? (
+        <div className="p-2">
+          <TextInput
+            action={(e) => {
+              setMultipleEdit({
+                ...multipleEdit,
+                newStreet: toTitleCase(e.target.value),
+              });
+            }}
+            label={multipleEdit.key}
+            value={multipleEdit.newStreet}
+          ></TextInput>
+        </div>
+      ) : null}
+
       <div className="flex gap-2 w-screen p-2">
         <Button
           action={() => {

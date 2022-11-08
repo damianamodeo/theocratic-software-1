@@ -24,7 +24,7 @@ export const CallBackForm = ({ addresses }) => {
     const document = doc(fdb, "notAtHomes", "MaitlandCongregation");
     const obj = {};
     const newAddress = {
-      id: Date.now(),
+      id: addresses[address].id,
       user: addresses[address].user,
       mapNumber: addresses[address].mapNumber || "",
       suburb: addresses[address].suburb,

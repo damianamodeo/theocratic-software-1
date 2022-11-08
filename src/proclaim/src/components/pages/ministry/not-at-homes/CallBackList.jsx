@@ -1,17 +1,26 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Streets } from "./Streets";
-import {
-  PageContext,
-  MultipleEditContext,
-} from "../../../../services/context/notAtHomesContext";
+import { SuburbsLongPress } from "./SuburbsLongPress";
 
 export const CallBackList = ({ addresses }) => {
   const [active, setActive] = useState("");
-  const { page, setPage } = useContext(PageContext);
-  const { multipleEdit, setMultipleEdit } = useContext(MultipleEditContext);
 
   return (
     <>
+      <div className="text-center font-bold py-4">
+        There are
+        {` ${
+          Object.keys(addresses).filter((id) => {
+            const address = addresses[id];
+            // console.log(())
+            if (id === "cong" || id === "id" || address.letter) {
+              return false;
+            }
+            return true;
+          }).length
+        } `}
+        addresses to call on
+      </div>
       {[
         ...new Set(
           Object.keys(
@@ -34,19 +43,8 @@ export const CallBackList = ({ addresses }) => {
             <div className="text-secondary font-bold text-xl text-center ">
               <div className="flex flex-col border">
                 <div className="flex">
-                  <div className="pl-2 my-1 ">{suburb}</div>
-
-                  {active === suburb ? (
-                    <div
-                      className={`text-black font-normal pl-2 text-sm my-auto text-right underline`}
-                      onClick={() => {
-                        setMultipleEdit({key: "suburb", oldValue: suburb, newValue: suburb})
-                        setPage("MultipleEdit");
-                      }}
-                    >
-                      edit
-                    </div>
-                  ) : (
+                  <SuburbsLongPress suburb={suburb} />
+                  {active === suburb ? null : (
                     <div
                       className={`text-black font-normal px-2 text-sm my-auto text-right`}
                     >

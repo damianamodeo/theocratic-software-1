@@ -21,8 +21,32 @@
 
 body {
   margin: 0;
+  overscroll-behavior-y: content;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
   /* display: flex; */
   /* place-items: center; */
   /* min-width: 320px; */
   /* min-height: 100vh; */
+}
+
+body {
+  overscroll-behavior-y: content;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menuBar::-webkit-scrollbar {
+  display: none;
+}
+
+.menuBar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+colorConvert {
+  background: hsl(264, 9%, 68%);
+  color: hsl(263, 20%, 82%);
+  color: #bdb6c9;
 }

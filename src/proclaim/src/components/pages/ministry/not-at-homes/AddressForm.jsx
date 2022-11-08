@@ -1,5 +1,4 @@
 import { AddressFormContext } from "../../../../services/context/notAtHomesContext";
-import { toTitleCase } from "../../../../../../common/services/formatting/titleCase";
 import { TextInput } from "../../../../../../common/components/inputs/text";
 import { NumberInput } from "../../../../../../common/components/inputs/number";
 import { useContext } from "react";
@@ -24,7 +23,7 @@ export const AddressForm = () => {
             action={(e) => {
               setAddressForm({
                 ...addressForm,
-                suburb: toTitleCase(e.target.value),
+                suburb: e.target.value,
               });
             }}
             label="Suburb"
@@ -56,7 +55,7 @@ export const AddressForm = () => {
             action={(e) => {
               setAddressForm({
                 ...addressForm,
-                street: toTitleCase(e.target.value),
+                street: e.target.value,
               });
             }}
             label="Street"

@@ -13,6 +13,22 @@ export const LettersList = ({ addresses }) => {
   };
   return (
     <>
+      <div className="text-center font-bold py-4">
+        There are
+        {` ${
+          Object.keys(addresses).filter((id) => {
+            const address = addresses[id];
+            if (id === "cong" || id === "id" || !address.letter) {
+              return false;
+            }
+            return true;
+          }).length
+        } `}
+        addresses to write to
+      </div>
+      <div className="text-center text-sm text-secondary pb-4 mx-12">
+        Tap on address and select "Letter Sent" to remove address from list
+      </div>
       {Object.keys(addresses)
         .filter((id) => {
           const address = addresses[id];
@@ -21,18 +37,7 @@ export const LettersList = ({ addresses }) => {
           }
           return true;
         })
-        .sort(function (a, b) {
-          if (addresses[a].houseNumber !== addresses[b].houseNumber) {
-            return parseInt(addresses[a].houseNumber) >
-              parseInt(addresses[b].houseNumber)
-              ? 1
-              : -1;
-          }
-          return parseInt(addresses[b].unitNumber) <
-            parseInt(addresses[a].unitNumber)
-            ? 1
-            : -1;
-        })
+        .sort()
         .map(function (id) {
           const address = addresses[id];
           return (
@@ -43,9 +48,9 @@ export const LettersList = ({ addresses }) => {
                 editAddress(id);
               }}
             >
-              {`${address.unitNumber ? `${address.unitNumber}/` : ""}${
+              {`${address.mapNumber} - ${address.suburb} - ${address.street} - ${address.unitNumber ? `${address.unitNumber}/` : ""}${
                 address.houseNumber
-              } ${address.street}, ${address.suburb} (${address.mapNumber})`}
+              }`}
             </div>
           );
         })}

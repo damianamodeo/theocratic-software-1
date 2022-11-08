@@ -4,6 +4,7 @@ import {
   PageContext,
   MultipleEditContext,
 } from "../../../../services/context/notAtHomesContext";
+import { StreetsLongPress } from "./StreetsLongPress";
 
 export const Streets = ({ suburb, addresses }) => {
   const [active, setActive] = useState({});
@@ -35,17 +36,9 @@ export const Streets = ({ suburb, addresses }) => {
                 key={street}
                 className="text-black font-normal text-sm flex my-2"
               >
-                <div className="text-sm px-2 my-auto">{street}</div>
+                <StreetsLongPress suburb={suburb} street={street} />
 
-                {active[street] === true ? (
-                  <div className="text-black font-normal text-left my-auto underline"
-                  onClick={() => {
-                    setMultipleEdit({key: "street", oldValue: street, newValue: street})
-                    setPage("MultipleEdit");
-                  }}>
-                    edit
-                  </div>
-                ) : (
+                {active[street] === true ? null : (
                   <div className="text-black font-normal text-left my-auto">
                     {`(${
                       Object.keys(

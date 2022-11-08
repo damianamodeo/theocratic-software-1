@@ -15,7 +15,7 @@ export const NotAtHomesContext = ({ children }) => {
   });
   const [address, setAddress] = useState("");
   const [page, setPage] = useState("PersonalList");
-  const [multipleEdit, setMultipleEdit] = useState({key: "", oldValue: "", newValue: ""});
+  const [multipleEdit, setMultipleEdit] = useState({key: "", oldSuburb: "", newSuburb: "", oldStreet: "", newStreet: ""});
   return (
     <PageContext.Provider value={{ page, setPage }}>
       <AddressFormContext.Provider value={{ addressForm, setAddressForm }}>
