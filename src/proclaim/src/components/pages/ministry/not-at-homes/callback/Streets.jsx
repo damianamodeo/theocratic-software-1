@@ -3,7 +3,7 @@ import { HouseNumbers } from "./HouseNumbers";
 import {
   PageContext,
   MultipleEditContext,
-} from "../../../../services/context/notAtHomesContext";
+} from "../../../../../services/context/notAtHomesContext";
 import { StreetsLongPress } from "./StreetsLongPress";
 
 export const Streets = ({ suburb, addresses }) => {

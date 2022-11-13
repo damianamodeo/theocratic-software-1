@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
   PageContext,
   AddressContext,
-} from "../../../../services/context/notAtHomesContext";
+} from "../../../../../services/context/notAtHomesContext";
 
 export const LettersList = ({ addresses }) => {
   const { address, setAddress } = useContext(AddressContext);
@@ -48,9 +48,11 @@ export const LettersList = ({ addresses }) => {
                 editAddress(id);
               }}
             >
-              {`${address.mapNumber} - ${address.suburb} - ${address.street} - ${address.unitNumber ? `${address.unitNumber}/` : ""}${
-                address.houseNumber
-              }`}
+            {`${address.suburb} - ${
+              address.unitNumber ? `${address.unitNumber}/` : ""
+            }${address.houseNumber} ${address.street} - (Map ${
+              address.mapNumber
+            })`}
             </div>
           );
         })}

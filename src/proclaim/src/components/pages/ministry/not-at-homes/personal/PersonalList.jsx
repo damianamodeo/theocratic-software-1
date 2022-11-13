@@ -1,14 +1,15 @@
 import { useContext } from "react";
-import { Button } from "../../../../../../common/components/inputs/button";
+import { Button } from "../../../../../../../common/components/inputs/button";
 import {
   PageContext,
   AddressContext,
   AddressFormContext,
-} from "../../../../services/context/notAtHomesContext";
+} from "../../../../../services/context/notAtHomesContext";
 import {
   HeaderContext,
   UserIDContext,
-} from "../../../../services/context/mainContext.jsx";
+} from "../../../../../services/context/mainContext.jsx";
+import { PersonalMap } from "./PersonalMap";
 
 export const PersonalList = ({ addresses }) => {
   const { page, setPage } = useContext(PageContext);
@@ -34,7 +35,7 @@ export const PersonalList = ({ addresses }) => {
           Add
         </Button>
       </div>
-      <div className="text-center font-bold pb-4">
+      {/* <div className="text-center font-bold pb-4">
         You currently have
         {` ${
           Object.keys(addresses).filter((id) => {
@@ -51,8 +52,10 @@ export const PersonalList = ({ addresses }) => {
           }).length
         } `}
         active addresses
-      </div>
-      <div className="text-center text-sm text-secondary pb-4">Tap on address to edit</div>
+      </div> */}
+      {/* <div className="text-center text-sm text-secondary pb-4">
+        Tap on address to edit
+      </div> */}
       {Object.keys(addresses)
         .filter((id) => {
           const address = addresses[id];
@@ -69,12 +72,16 @@ export const PersonalList = ({ addresses }) => {
         .sort(function (a, b) {
           return addresses[b].id > addresses[a].id ? 1 : -1;
         })
-        .map(function (id) {
+        .map(function (id, index) {
           const address = addresses[id];
           return (
             <div
               key={id}
-              className="p-4 text-sm font-normal align-middle border"
+              className={`align-middle border ${
+                index === 0
+                  ? "font-bold text-center pb-4"
+                  : "p-4 text-sm font-normal"
+              }`}
               onClick={() => {
                 setAddress(id);
                 setAddressForm(addresses[id]);
@@ -82,9 +89,21 @@ export const PersonalList = ({ addresses }) => {
                 setPage("PersonalUpdate");
               }}
             >
-              {`${address.mapNumber} - ${address.suburb} - ${address.street} - ${
+              {index === 0 && (
+                <div className="h-[40vh] pb-6 w-full">
+                  <PersonalMap
+                    position={{
+                      lat: addresses[id].lat,
+                      lng: addresses[id].lng,
+                    }}
+                  ></PersonalMap>
+                </div>
+              )}
+              {`${address.suburb} - ${
                 address.unitNumber ? `${address.unitNumber}/` : ""
-              }${address.houseNumber}`}
+              }${address.houseNumber} ${address.street} - (Map ${
+                address.mapNumber
+              })`}
             </div>
           );
         })}

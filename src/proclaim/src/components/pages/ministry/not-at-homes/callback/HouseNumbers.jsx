@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
   PageContext,
   AddressContext,
-} from "../../../../services/context/notAtHomesContext";
+} from "../../../../../services/context/notAtHomesContext";
 
 export const HouseNumbers = ({ suburb, street, addresses }) => {
   const { address, setAddress } = useContext(AddressContext);

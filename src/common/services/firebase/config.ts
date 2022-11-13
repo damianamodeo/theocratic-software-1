@@ -15,11 +15,13 @@ export const firebaseConfig = {
   storageBucket: "theocratic-software.appspot.com",
   messagingSenderId: "441138730087",
   appId: "1:441138730087:web:9877f590cadb16467af0c2",
-  measurementId: "G-KHGDKVZKNR"
+  measurementId: "G-KHGDKVZKNR",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const fdb = getFirestore();
-connectFirestoreEmulator(fdb, 'localhost', 8080);
+if (import.meta.env.DEV) {
+  connectFirestoreEmulator(fdb, "localhost", 8080);
+}

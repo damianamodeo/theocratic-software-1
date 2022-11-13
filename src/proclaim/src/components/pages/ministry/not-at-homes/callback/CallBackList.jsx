@@ -1,25 +1,24 @@
 import { useState } from "react";
+import { Button } from "../../../../../../../common/components/inputs/button";
+import { CallBackMap } from "./CallBackMap";
 import { Streets } from "./Streets";
 import { SuburbsLongPress } from "./SuburbsLongPress";
 
 export const CallBackList = ({ addresses }) => {
   const [active, setActive] = useState("");
+  const [showMap, setShowMap] = useState(false);
 
   return (
     <>
-      <div className="text-center font-bold py-4">
-        There are
-        {` ${
-          Object.keys(addresses).filter((id) => {
-            const address = addresses[id];
-            // console.log(())
-            if (id === "cong" || id === "id" || address.letter) {
-              return false;
-            }
-            return true;
-          }).length
-        } `}
-        addresses to call on
+      <div className="p-4">
+        <Button
+          action={() => {
+            setShowMap(!showMap);
+          }}
+        >{`${showMap ? "Hide" : "Show"} Map`}</Button>
+      </div>
+      <div className={`${showMap ? "h-[60vh] " : ""}`}>
+        <CallBackMap addresses={addresses}></CallBackMap>
       </div>
       {[
         ...new Set(

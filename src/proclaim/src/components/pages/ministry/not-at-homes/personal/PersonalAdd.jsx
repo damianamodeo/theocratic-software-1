@@ -3,16 +3,16 @@ import {
   PageContext,
   AddressContext,
   AddressFormContext,
-} from "../../../../services/context/notAtHomesContext";
-import { Button } from "../../../../../../common/components/inputs/button.jsx";
+} from "../../../../../services/context/notAtHomesContext";
+import { Button } from "../../../../../../../common/components/inputs/button.jsx";
 import { doc, updateDoc } from "firebase/firestore";
-import { fdb } from "../../../../../../common/services/firebase/config";
-import { AddressForm } from "./AddressForm";
+import { fdb } from "../../../../../../../common/services/firebase/config";
+import { AddressForm } from "../form/AddressForm";
 import {
   HeaderContext,
   UserIDContext,
-} from "../../../../services/context/mainContext.jsx";
-import { toTitleCase } from "../../../../../../common/services/formatting/titleCase";
+} from "../../../../../services/context/mainContext.jsx";
+import { toTitleCase } from "../../../../../../../common/services/formatting/titleCase";
 
 export const PersonalAdd = ({ addresses }) => {
   const { userID, setUserID } = useContext(UserIDContext);
@@ -21,9 +21,23 @@ export const PersonalAdd = ({ addresses }) => {
   const { addressForm, setAddressForm } = useContext(AddressFormContext);
   const { header, setHeader } = useContext(HeaderContext);
 
-  const add = async () => {
+  const add = async ({ letter }) => {
     setPage("PersonalList");
     setHeader("Personal");
+    const geoCode = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${
+        addressForm.houseNumber
+      }+${addressForm.street.trim().replace(/ /g, "+")},+${addressForm.suburb
+        .trim()
+        .replace(/ /g, "+")},+NSW&key=${
+        import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+      }`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        return data;
+      });
+
     const document = doc(fdb, "notAtHomes", "MaitlandCongregation");
     const obj = {};
     const id = "id" + Date.now();
@@ -35,6 +49,9 @@ export const PersonalAdd = ({ addresses }) => {
       street: toTitleCase(addressForm.street.trim()),
       houseNumber: Number(addressForm.houseNumber),
       unitNumber: addressForm.unitNumber || "",
+      lat: geoCode.results[0].geometry.location.lat,
+      lng: geoCode.results[0].geometry.location.lng,
+      letter: letter
     };
     await updateDoc(document, obj);
     setAddressForm({ ...addressForm, houseNumber: "", unitNumber: "" });
@@ -42,10 +59,11 @@ export const PersonalAdd = ({ addresses }) => {
   };
 
   return (
-    <div className="grid gap-8 mt-8">
+    <div className="grid gap-8 mt-4">
       <AddressForm />
-
-      <div className="flex gap-2 w-screen p-2">
+      <div className="flex flex-col gap-4 w-screen p-2">
+        <Button action={() => add({ letter: true })}>Letter</Button>
+        <Button action={() => add({ letter: false })}>Submit</Button>
         <Button
           action={() => {
             setHeader("Personal");
@@ -54,7 +72,6 @@ export const PersonalAdd = ({ addresses }) => {
         >
           Back
         </Button>
-        <Button action={() => add()}>Submit</Button>
       </div>
     </div>
   );

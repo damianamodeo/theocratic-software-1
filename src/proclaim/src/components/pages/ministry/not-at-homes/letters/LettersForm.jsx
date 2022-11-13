@@ -2,10 +2,10 @@ import { useContext } from "react";
 import {
   PageContext,
   AddressContext,
-} from "../../../../services/context/notAtHomesContext";
-import { Button } from "../../../../../../common/components/inputs/button.jsx";
+} from "../../../../../services/context/notAtHomesContext";
+import { Button } from "../../../../../../../common/components/inputs/button.jsx";
 import { doc, updateDoc, deleteField } from "firebase/firestore";
-import { fdb } from "../../../../../../common/services/firebase/config";
+import { fdb } from "../../../../../../../common/services/firebase/config";
 
 export const LettersForm = ({ addresses }) => {
   const { page, setPage } = useContext(PageContext);

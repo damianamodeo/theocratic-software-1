@@ -1,8 +1,8 @@
-import { useLongPress } from "../../../../../../common/services/other/useLongPress";
+import { useLongPress } from "../../../../../../../common/services/other/useLongPress";
 import {
   PageContext,
   MultipleEditContext,
-} from "../../../../services/context/notAtHomesContext";
+} from "../../../../../services/context/notAtHomesContext";
 import { useContext} from "react";
 
 export const StreetsLongPress = ({ suburb, street }) => {

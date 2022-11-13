@@ -1,15 +1,15 @@
 import { PageContext } from "../../../../services/context/notAtHomesContext.jsx";
-import { CallBackList } from "./CallBackList";
-import { CallBackForm } from "./CallBackForm";
-import { PersonalList } from "./PersonalList";
+import { CallBackList } from "./callback/CallBackList";
+import { CallBackForm } from "./callback/CallBackForm";
 import { fdb } from "../../../../../../common/services/firebase/config.ts";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useContext, useState } from "react";
-import { LettersList } from "./LettersList.jsx";
-import { LettersForm } from "./LettersForm.jsx";
-import { PersonalUpdate } from "./PersonalUpdate.jsx";
-import { PersonalAdd } from "./PersonalAdd.jsx";
-import { MultipleEditForm } from "./MultipleEditForm.jsx";
+import { LettersList } from "./letters/LettersList.jsx";
+import { LettersForm } from "./letters/LettersForm.jsx";
+import { PersonalList } from "./personal/PersonalList";
+import { PersonalUpdate } from "./personal/PersonalUpdate.jsx";
+import { PersonalAdd } from "./personal/PersonalAdd.jsx";
+import { MultipleEditForm } from "./form/MultipleEditForm.jsx";
 
 export const NotAtHomes = ({ active }) => {
   const notAtHomes = collection(fdb, "notAtHomes");
