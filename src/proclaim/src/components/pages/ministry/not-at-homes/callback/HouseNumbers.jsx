@@ -6,10 +6,10 @@ import {
 
 export const HouseNumbers = ({ suburb, street, addresses }) => {
   const { address, setAddress } = useContext(AddressContext);
-  const {page, setPage} = useContext(PageContext)
+  const { page, setPage } = useContext(PageContext);
   const editAddress = (id) => {
-    setAddress(id)
-    setPage("CallBackForm")
+    setAddress(id);
+    setPage("CallBackForm");
   };
 
   return (
@@ -22,7 +22,7 @@ export const HouseNumbers = ({ suburb, street, addresses }) => {
             id === "id" ||
             suburb !== address.suburb ||
             street !== address.street ||
-            address.letter
+            address.letter 
           ) {
             return false;
           }
@@ -30,7 +30,10 @@ export const HouseNumbers = ({ suburb, street, addresses }) => {
         })
         .sort(function (a, b) {
           if (addresses[a].houseNumber !== addresses[b].houseNumber) {
-            return parseInt(addresses[a].houseNumber) > parseInt(addresses[b].houseNumber) ? 1 : -1;
+            return parseInt(addresses[a].houseNumber) >
+              parseInt(addresses[b].houseNumber)
+              ? 1
+              : -1;
           }
           return parseInt(addresses[b].unitNumber) <
             parseInt(addresses[a].unitNumber)
@@ -44,8 +47,8 @@ export const HouseNumbers = ({ suburb, street, addresses }) => {
               key={id}
               className="py-2 text-sm font-normal align-middle text-center bg-bg "
               onClick={() => {
-                setAddress(id)
-                setPage("CallBackForm")
+                setAddress(id);
+                setPage("CallBackForm");
               }}
             >
               {address.unitNumber ? `${address.unitNumber}-` : ""}

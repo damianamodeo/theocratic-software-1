@@ -6,6 +6,7 @@ import {
 import { Button } from "../../../../../../../common/components/inputs/button.jsx";
 import { doc, updateDoc, deleteField } from "firebase/firestore";
 import { fdb } from "../../../../../../../common/services/firebase/config";
+import { ButtonLongPress } from "../../../../../../../common/components/inputs/ButtonLongPress";
 
 export const LettersForm = ({ addresses }) => {
   const { page, setPage } = useContext(PageContext);
@@ -21,6 +22,9 @@ export const LettersForm = ({ addresses }) => {
 
   return (
     <div className="grid gap-8 mt-8">
+      <div className="text-center text-sm text-secondary uppercase pb-4 mx-12">
+        Please note you now need to press and hold to activate some buttons
+      </div>
       {addresses[address] !== undefined ? (
         <div className="text-center text-lg">
           {addresses[address].unitNumber
@@ -31,7 +35,7 @@ export const LettersForm = ({ addresses }) => {
           {addresses[address].suburb}
         </div>
       ) : null}
-      <Button action={() => remove()}>Letter Sent</Button>
+      <ButtonLongPress action={() => remove()}>Letter Sent</ButtonLongPress>
       <Button action={() => setPage("LettersList")}>Back</Button>
     </div>
   );

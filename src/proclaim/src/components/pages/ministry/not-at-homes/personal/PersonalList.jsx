@@ -10,6 +10,7 @@ import {
   UserIDContext,
 } from "../../../../../services/context/mainContext.jsx";
 import { PersonalMap } from "./PersonalMap";
+import { LongPress } from "../../../../../../../common/components/inputs/LongPress";
 
 export const PersonalList = ({ addresses }) => {
   const { page, setPage } = useContext(PageContext);
@@ -21,13 +22,18 @@ export const PersonalList = ({ addresses }) => {
   return (
     <>
       <div className="py-6">
+        <div className="text-center text-sm text-secondary uppercase pb-4 mx-12">
+          Please note you now need to press and hold to activate some buttons
+        </div>
         <Button
           action={() => {
             setPage("PersonalAdd");
             setHeader("Add New Address");
             setAddressForm({
               ...addressForm,
-              houseNumber: "",
+              houseNumber: addressForm.unitNumber
+                ? addressForm.houseNumber
+                : "",
               unitNumber: "",
             });
           }}
@@ -35,27 +41,6 @@ export const PersonalList = ({ addresses }) => {
           Add
         </Button>
       </div>
-      {/* <div className="text-center font-bold pb-4">
-        You currently have
-        {` ${
-          Object.keys(addresses).filter((id) => {
-            const address = addresses[id];
-            if (
-              id === "cong" ||
-              id === "id" ||
-              address.letter ||
-              address.user !== userID
-            ) {
-              return false;
-            }
-            return true;
-          }).length
-        } `}
-        active addresses
-      </div> */}
-      {/* <div className="text-center text-sm text-secondary pb-4">
-        Tap on address to edit
-      </div> */}
       {Object.keys(addresses)
         .filter((id) => {
           const address = addresses[id];
@@ -75,36 +60,39 @@ export const PersonalList = ({ addresses }) => {
         .map(function (id, index) {
           const address = addresses[id];
           return (
-            <div
+            <LongPress
               key={id}
-              className={`align-middle border ${
-                index === 0
-                  ? "font-bold text-center pb-4"
-                  : "p-4 text-sm font-normal"
-              }`}
-              onClick={() => {
+              action={() => {
                 setAddress(id);
                 setAddressForm(addresses[id]);
                 setHeader("Edit Address");
                 setPage("PersonalUpdate");
               }}
             >
-              {index === 0 && (
-                <div className="h-[40vh] pb-6 w-full">
-                  <PersonalMap
-                    position={{
-                      lat: addresses[id].lat,
-                      lng: addresses[id].lng,
-                    }}
-                  ></PersonalMap>
-                </div>
-              )}
-              {`${address.suburb} - ${
-                address.unitNumber ? `${address.unitNumber}/` : ""
-              }${address.houseNumber} ${address.street} - (Map ${
-                address.mapNumber
-              })`}
-            </div>
+              <div
+                className={`align-middle border ${
+                  index === 0
+                    ? "font-bold text-center pb-4"
+                    : "p-4 text-sm font-normal"
+                }`}
+              >
+                {index === 0 && (
+                  <div className="h-[40vh] pb-6 w-full">
+                    <PersonalMap
+                      position={{
+                        lat: addresses[id].lat,
+                        lng: addresses[id].lng,
+                      }}
+                    ></PersonalMap>
+                  </div>
+                )}
+                {`${address.suburb} - ${
+                  address.unitNumber ? `${address.unitNumber}/` : ""
+                }${address.houseNumber} ${address.street} - (Map ${
+                  address.mapNumber
+                })`}
+              </div>
+            </LongPress>
           );
         })}
     </>

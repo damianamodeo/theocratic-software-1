@@ -13,6 +13,7 @@ import {
   UserIDContext,
 } from "../../../../../services/context/mainContext.jsx";
 import { toTitleCase } from "../../../../../../../common/services/formatting/titleCase";
+import { ButtonLongPress } from "../../../../../../../common/components/inputs/ButtonLongPress";
 
 export const PersonalAdd = ({ addresses }) => {
   const { userID, setUserID } = useContext(UserIDContext);
@@ -51,10 +52,9 @@ export const PersonalAdd = ({ addresses }) => {
       unitNumber: addressForm.unitNumber || "",
       lat: geoCode.results[0].geometry.location.lat,
       lng: geoCode.results[0].geometry.location.lng,
-      letter: letter
+      letter: letter,
     };
     await updateDoc(document, obj);
-    setAddressForm({ ...addressForm, houseNumber: "", unitNumber: "" });
     setAddress(id);
   };
 
@@ -62,8 +62,12 @@ export const PersonalAdd = ({ addresses }) => {
     <div className="grid gap-8 mt-4">
       <AddressForm />
       <div className="flex flex-col gap-4 w-screen p-2">
-        <Button action={() => add({ letter: true })}>Letter</Button>
-        <Button action={() => add({ letter: false })}>Submit</Button>
+        <ButtonLongPress action={() => add({ letter: true })}>
+          Letter List
+        </ButtonLongPress>
+        <ButtonLongPress action={() => add({ letter: false })}>
+          Callback List
+        </ButtonLongPress>
         <Button
           action={() => {
             setHeader("Personal");

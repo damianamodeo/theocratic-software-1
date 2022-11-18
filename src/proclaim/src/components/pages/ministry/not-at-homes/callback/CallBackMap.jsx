@@ -10,12 +10,14 @@ import {
   AddressContext,
 } from "../../../../../services/context/notAtHomesContext";
 
+const libraries = ["places"]
+
 export const CallBackMap = ({ addresses }) => {
   const { address, setAddress } = useContext(AddressContext);
   const { page, setPage } = useContext(PageContext);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-    libraries: ["places"],
+    // libraries,
   });
   const mapRef = useRef();
   const center = useMemo(() => ({ lat: -32.74, lng: 151.59 }), []);
@@ -53,6 +55,7 @@ export const CallBackMap = ({ addresses }) => {
                 .filter((id) => {
                   const address = addresses[id];
                   if (id === "cong" || id === "id" || address.letter) {
+                    console.log("🚀 ~ file: CallBackMap.jsx ~ line 58 ~ .filter ~ address.letter", address.letter)
                     return false;
                   }
                   return true;

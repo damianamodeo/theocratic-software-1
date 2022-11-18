@@ -1,9 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Navbar } from "../../../common/components/containers/navbar";
 import { NavbarIcon } from "../../../common/components/containers/navbar-icon";
 import { Ministry } from "./pages/ministry/Ministry";
 import { Header } from "../../../common/components/containers/header.tsx";
-import { HeaderContext, UserIDContext } from "../services/context/mainContext.jsx";
+import {
+  HeaderContext,
+  UserIDContext,
+} from "../services/context/mainContext.jsx";
 import { PageContext } from "../services/context/notAtHomesContext";
 import { idb } from "../services/indexedDB/dexie";
 
@@ -11,7 +14,7 @@ export const MainPage = () => {
   const [active, setActive] = useState("Personal");
   const { header, setHeader } = useContext(HeaderContext);
   const { page, setPage } = useContext(PageContext);
-  const {userID, setUserID} = useContext(UserIDContext);
+  const { userID, setUserID } = useContext(UserIDContext);
 
   const getUserID = async () => {
     const item = await idb.settings.get(1);
