@@ -15,9 +15,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "paths": {
-      "damian/*": ["folder/*"]
+      "@inputs/*": ["./src/common/components/inputs/*"],
+      "@FIREBASE/*": ["./src/common/services/firebase/*"],
+      "@test-googleMaps/*": ["./src/test/googleMaps/*"],
+      "@test-firebase/*": ["./src/test/firebase/*"]
     }
   },
   "include": ["src"],

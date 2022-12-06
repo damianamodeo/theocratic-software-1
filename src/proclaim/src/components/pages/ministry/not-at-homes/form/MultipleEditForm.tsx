@@ -1,6 +1,6 @@
 import { updateDoc, doc } from "firebase/firestore";
 import { useContext, useState } from "react";
-import { Button } from "../../../../../../../common/components/inputs/button";
+import { Button } from "@inputs/Button";
 import { TextInput } from "../../../../../../../common/components/inputs/text";
 import { fdb } from "../../../../../../../common/services/firebase/config";
 import { toTitleCase } from "../../../../../../../common/services/formatting/titleCase";
@@ -11,9 +11,9 @@ import {
 } from "../../../../../services/context/notAtHomesContext";
 
 export const MultipleEditForm = ({ addresses }) => {
-  const { multipleEdit, setMultipleEdit } = useContext(MultipleEditContext);
-  const { header, setHeader } = useContext(HeaderContext);
-  const { page, setPage } = useContext(PageContext);
+  const { multipleEdit, setMultipleEdit } = useContext<any>(MultipleEditContext);
+  const { header, setHeader } = useContext<any>(HeaderContext);
+  const { page, setPage } = useContext<any>(PageContext);
 
   const update = async () => {
     setPage("CallBackList");

@@ -1,4 +1,4 @@
-import { PageContext } from "../../../../services/context/notAtHomesContext.jsx";
+import { PageContext } from "../../../../services/context/notAtHomesContext.tsx";
 import { CallBackList } from "./callback/CallBackList";
 import { CallBackForm } from "./callback/CallBackForm";
 import { fdb } from "../../../../../../common/services/firebase/config.ts";
@@ -9,7 +9,7 @@ import { LettersForm } from "./letters/LettersForm.jsx";
 import { PersonalList } from "./personal/PersonalList";
 import { PersonalUpdate } from "./personal/PersonalUpdate.jsx";
 import { PersonalAdd } from "./personal/PersonalAdd.jsx";
-import { MultipleEditForm } from "./form/MultipleEditForm.jsx";
+import { MultipleEditForm } from "./form/MultipleEditForm";
 
 export const NotAtHomes = ({ active }) => {
   const notAtHomes = collection(fdb, "notAtHomes");

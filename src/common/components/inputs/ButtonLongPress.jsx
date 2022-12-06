@@ -4,7 +4,7 @@ import { useLongPress } from "../../../common/services/other/useLongPress.js";
 //   MultipleEditContext,
 // } from "../../../../../services/context/notAtHomesContext";
 import { useContext } from "react";
-import { Button } from "./button";
+import { Button } from "./Button";
 
 export const ButtonLongPress = ({ action, children }) => {
   // const { page, setPage } = useContext(PageContext);

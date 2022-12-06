@@ -42,10 +42,10 @@ export const CallBackMap = ({ addresses }) => {
           onLoad={onLoad}
         >
           <MarkerClusterer
-            gridSize={40}
+            gridSize={60}
             averageCenter={true}
             zoomOnClick={true}
-            maxZoom={18}
+            // maxZoom={null}
             // onClick={(cluster) => {
             //   console.log(cluster.getMarkers());
             // }}
@@ -55,7 +55,6 @@ export const CallBackMap = ({ addresses }) => {
                 .filter((id) => {
                   const address = addresses[id];
                   if (id === "cong" || id === "id" || address.letter) {
-                    console.log("🚀 ~ file: CallBackMap.jsx ~ line 58 ~ .filter ~ address.letter", address.letter)
                     return false;
                   }
                   return true;

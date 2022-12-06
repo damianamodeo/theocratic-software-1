@@ -23,5 +23,5 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const fdb = getFirestore();
 if (import.meta.env.DEV) {
-  connectFirestoreEmulator(fdb, "localhost", 8080);
+  connectFirestoreEmulator(fdb, "localhost", 8087);
 }

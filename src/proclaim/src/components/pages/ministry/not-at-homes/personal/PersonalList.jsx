@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Button } from "../../../../../../../common/components/inputs/button";
+import { Button } from "../../../../../../../common/components/inputs/Button";
 import {
   PageContext,
   AddressContext,
@@ -60,39 +60,36 @@ export const PersonalList = ({ addresses }) => {
         .map(function (id, index) {
           const address = addresses[id];
           return (
-            <LongPress
+            <div
+              className={`align-middle border ${
+                index === 0
+                  ? "font-bold text-center pb-4"
+                  : "p-4 text-sm font-normal"
+              }`}
               key={id}
-              action={() => {
+              onClick={() => {
                 setAddress(id);
                 setAddressForm(addresses[id]);
                 setHeader("Edit Address");
                 setPage("PersonalUpdate");
               }}
             >
-              <div
-                className={`align-middle border ${
-                  index === 0
-                    ? "font-bold text-center pb-4"
-                    : "p-4 text-sm font-normal"
-                }`}
-              >
-                {index === 0 && (
-                  <div className="h-[40vh] pb-6 w-full">
-                    <PersonalMap
-                      position={{
-                        lat: addresses[id].lat,
-                        lng: addresses[id].lng,
-                      }}
-                    ></PersonalMap>
-                  </div>
-                )}
-                {`${address.suburb} - ${
-                  address.unitNumber ? `${address.unitNumber}/` : ""
-                }${address.houseNumber} ${address.street} - (Map ${
-                  address.mapNumber
-                })`}
-              </div>
-            </LongPress>
+              {index === 0 && (
+                <div className="h-[40vh] pb-6 w-full">
+                  <PersonalMap
+                    position={{
+                      lat: addresses[id].lat,
+                      lng: addresses[id].lng,
+                    }}
+                  ></PersonalMap>
+                </div>
+              )}
+              {`${address.suburb} - ${
+                address.unitNumber ? `${address.unitNumber}/` : ""
+              }${address.houseNumber} ${address.street} - (Map ${
+                address.mapNumber
+              })`}
+            </div>
           );
         })}
     </>

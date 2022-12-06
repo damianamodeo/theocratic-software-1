@@ -4,7 +4,7 @@ import {
   AddressContext,
   AddressFormContext,
 } from "../../../../../services/context/notAtHomesContext";
-import { Button } from "../../../../../../../common/components/inputs/button.jsx";
+import { Button } from "@inputs/Button";
 import { doc, updateDoc, deleteField } from "firebase/firestore";
 import { fdb } from "../../../../../../../common/services/firebase/config";
 import { AddressForm } from "../form/AddressForm";
