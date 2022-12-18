@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "serve orderly": "vite  -c vite-orderly.config.ts  --port 300 --host",
-    "serve-proclaim": "vite -c vite-proclaim.config.ts --port 3001 --host",
+    "serve orderly": "vite  -c vite-orderly.config.ts  --port 300 --host --mode orderly",
+    "serve-proclaim": "vite --port 3001 --host --mode proclaim",
     "serve test": "vite --port 3002 --host --mode test",
     "generate-assets-orderly": "npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg src/orderly/icons/pwa -b '#5b3c88' -f true -i src/orderly/index.html && npx pwa-asset-generator src/orderly/icons/pwa/logo-orderly.svg src/orderly/public/assets -b '#5b3c88' -d true --scrape false --icon-only true",
     "generate-assets-proclaim": "npx pwa-asset-generator src/proclaim/icons/pwa/logo-proclaim.svg src/proclaim/icons/pwa -b '#5b3c88' -f true -i src/proclaim/index.html && npx pwa-asset-generator src/proclaim/icons/pwa/logo-proclaim.svg src/proclaim/public/assets -b '#5b3c88' -d true --scrape false --icon-only true",
@@ -16,7 +16,8 @@
     "deploy": "firebase deploy --only hosting",
     "deploy rules": "firebase deploy --only firestore:rules",
     "emulators": "firebase emulators:start --import=./src/common/services/firebase/emulator-data --export-on-exit ",
-    "emulators   empty": "firebase emulators:start "
+    "emulators   empty": "firebase emulators:start ",
+    "emulators kill 8080": "fuser -k 8080/tcp"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.15.1",
@@ -28,9 +29,11 @@
     "dexie": "^3.2.2",
     "dexie-react-hooks": "^1.1.1",
     "firebase": "^9.11.0",
+    "formik": "^2.2.9",
     "pwa-asset-generator": "^6.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/google.maps": "^3.50.5",

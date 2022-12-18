@@ -62,7 +62,7 @@ export default ({mode}) => {
     ],
     resolve: {
       alias: {
-        "@inputs": path.resolve(__dirname, "./src/common/components/inputs"),
+        "@INPUTS": path.resolve(__dirname, "./src/common/components/inputs"),
         "@FIREBASE": path.resolve(__dirname, "./src/common/services/firebase"),
         "@test-googleMaps": path.resolve(__dirname, "./src/test/googleMaps"),
         "@test-firebase": path.resolve(__dirname, "./src/test/firebase")

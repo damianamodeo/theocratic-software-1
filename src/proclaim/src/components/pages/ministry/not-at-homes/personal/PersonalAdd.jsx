@@ -4,10 +4,10 @@ import {
   AddressContext,
   AddressFormContext,
 } from "../../../../../services/context/notAtHomesContext";
-import { Button } from "@inputs/Button";
+import { Button } from "@INPUTS/Button";
 import { doc, updateDoc } from "firebase/firestore";
 import { fdb } from "../../../../../../../common/services/firebase/config";
-import { AddressForm } from "../form/AddressForm";
+import { AddressForm } from "../form/AddressForm2";
 import {
   HeaderContext,
   UserIDContext,
@@ -59,24 +59,11 @@ export const PersonalAdd = ({ addresses }) => {
   };
 
   return (
-    <div className="grid gap-8 mt-4">
-      <AddressForm />
-      <div className="flex flex-col gap-4 w-screen p-2">
-        <ButtonLongPress action={() => add({ letter: true })}>
-          Letter List
-        </ButtonLongPress>
-        <ButtonLongPress action={() => add({ letter: false })}>
-          Callback List
-        </ButtonLongPress>
-        <Button
-          action={() => {
+    <div className="gap-8 mt-4">
+      <AddressForm backButton={() => {
             setHeader("Personal");
             setPage("PersonalList");
-          }}
-        >
-          Back
-        </Button>
-      </div>
+          }}/>
     </div>
   );
 };

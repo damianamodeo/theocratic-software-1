@@ -3,7 +3,7 @@ import {
   PageContext,
   AddressContext,
 } from "../../../../../services/context/notAtHomesContext";
-import { Button } from "@inputs/Button";
+import { Button } from "@INPUTS/Button";
 import { doc, updateDoc, deleteField } from "firebase/firestore";
 import { fdb } from "../../../../../../../common/services/firebase/config";
 import { ButtonLongPress } from "../../../../../../../common/components/inputs/ButtonLongPress";

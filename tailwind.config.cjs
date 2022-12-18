@@ -25,6 +25,7 @@ module.exports = {
         "bgDark": "#c0c0c0",
         "bgDarkD": "#393939",
         "button": "#6d6d6d",
+        "buttonHover": "#5d5d5d",
         "buttonD": "#888888",
         "jwGrey": "#626262",
         "jwYellow": "#c48430",

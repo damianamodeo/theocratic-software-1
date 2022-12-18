@@ -8,7 +8,7 @@ export const NumberInput = ({ label, value, action }) => {
           type="tel"
           id={label}
           className={style.input}
-          placeholder=" "
+          placeholder=""
           value={value}
           onChange={action}
         />

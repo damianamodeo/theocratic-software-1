@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
-      "@inputs/*": ["./src/common/components/inputs/*"],
+      "@INPUTS/*": ["./src/common/components/inputs/*"],
       "@FIREBASE/*": ["./src/common/services/firebase/*"],
       "@test-googleMaps/*": ["./src/test/googleMaps/*"],
       "@test-firebase/*": ["./src/test/firebase/*"]

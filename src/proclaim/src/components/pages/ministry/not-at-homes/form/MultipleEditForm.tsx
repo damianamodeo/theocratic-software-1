@@ -1,6 +1,6 @@
 import { updateDoc, doc } from "firebase/firestore";
 import { useContext, useState } from "react";
-import { Button } from "@inputs/Button";
+import { Button } from "@INPUTS/Button";
 import { TextInput } from "../../../../../../../common/components/inputs/text";
 import { fdb } from "../../../../../../../common/services/firebase/config";
 import { toTitleCase } from "../../../../../../../common/services/formatting/titleCase";
