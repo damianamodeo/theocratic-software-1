@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { FormikInput } from "@INPUTS/FormikInput";
 import { Submit } from "@INPUTS/Submit";
 import { Button } from "@INPUTS/Button";
+import { getCoordinates } from "../../../../../../../common/services/googleMaps/getCoordinates";
 
 export const AddressForm = ({ backButton }) => {
   const { addressForm, setAddressForm } = useContext(AddressFormContext);
@@ -28,7 +29,9 @@ export const AddressForm = ({ backButton }) => {
       console.log("Combined List");
       return;
     }
-    console.log("Letter List");
+    const address = {houseNumber: 59, street: "Woodlands Drive", suburb: "Thornton", state: "NSW"}
+    getCoordinates(address).then(e=>console.log(e))
+    
   };
 
   return (
@@ -75,6 +78,7 @@ export const AddressForm = ({ backButton }) => {
                       type="text"
                       label="House"
                       name="houseNumber"
+                      autoFocus
                     />
                   </div>
                   <div className="basis-3/5 px-2">
